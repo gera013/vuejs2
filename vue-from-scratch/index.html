@@ -11,6 +11,11 @@
     <script src="components/computed-properties.js"></script>
     <script src="components/methods.js"></script>
     <script src="components/vmodel.js"></script>
+    <script src="components/vmodel-checkboxes.js"></script>
+    <script src="components/emit.js"></script>
+    <script src="components/parent-data.js"></script>
+    <script src="components/child-data.js"></script>
+    <script src="components/child-methods.js"></script>
 </head>
 <body>
     <div id="app">
@@ -18,11 +23,35 @@
         <computed-properties></computed-properties>
         <methods></methods>
         <vmodel></vmodel>
+        <vmodel-checkboxes></vmodel-checkboxes>
+        <emit @cardbrand="showCardBrandFromEmitCmp"></emit>
+        <parent-data></parent-data>
+        <child-data ref="childData"></child-data>
+        <child-methods ref="childMethod"></child-methods>
+
     </div>
 
     <script>
         new Vue({
-            el: '#app'
+            el: '#app',
+            data() {
+                return {
+                    appName: 'Iniciando con Vuejs 2'
+                }
+            },
+            mounted () {
+                const cmpName = this.$refs.childData.cmpName;
+                console.log(cmpName);
+
+                setTimeout(() =>{
+                    this.$refs.childMethod.showCmpName();
+                }, 3000)
+            },
+            methods: {
+                showCardBrandFromEmitCmp(cardBrand){
+                    alert(cardBrand)
+                }
+            }
         });
     </script>
 </body>
